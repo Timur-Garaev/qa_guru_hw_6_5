@@ -9,8 +9,8 @@ def test_openbrowser():
     browser.open('/')
     browser.element('[name=login]').click().type('timur.garaev.91@mail.ru') # находит элемент по селектуру. кликаем/пишем текст/нажимаем таб
     browser.element('[name=password]').click().type('qazwsx123').press_enter()
-    browser.element('.mt-12').should(have.text('Транзакции'))
+    browser.element('').should(have.text('Транзакции'))
     # browser.all() # находит все элементы по селектуру
     # Открытие браузера через browser.open
-def test_openbrowser():
+def test_openbrowser_test2():
     browser.open('https://lk.atolpay.ru')

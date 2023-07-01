@@ -11,7 +11,6 @@ def brawser_management():
     browser.config.window_width = 1920
     browser.config.window_height = 1080
     browser.config.base_url = 'https://lk.atolpay.ru'
-    browser.config.timeout = 4.0
 
     yield # команда которая передаёт выполнение тесту. все что выше это выполняется как предусловие все что ниже это выполняется после теста
 
