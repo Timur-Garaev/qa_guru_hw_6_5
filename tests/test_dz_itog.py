@@ -10,6 +10,7 @@ def test_filling_out_and_submitting_the_form():
     browser.element('#userNumber').click().type('8999999999')
     browser.element('#dateOfBirthInput').click().element('[class=react-datepicker__year-select]')\
         .click() ## тут надо разобраться как скроллить
+    browser.element() # тут пропустил одно поле
     browser.element('#hobbies-checkbox-1').click()
     browser.element('#uploadPicture').click() ## тут надо разобраться как выбрать конкретный файл коорый хочу загрузить
     browser.element('#currentAddress').click().type('testaddress')
