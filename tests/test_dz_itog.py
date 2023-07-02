@@ -1,20 +1,27 @@
-from selene import browser, be, have
+import os.path
 
+from selene import browser, have
 
-def test_filling_out_and_submitting_the_form():
-    browser.open('https://demoqa.com/automation-practice-form')
-    browser.element('#firstName').click().type('Timur')
-    browser.element('#lastName').click().type('Garaev')
-    browser.element('#userEmail').click().type('testguru@mail.ru')
-    browser.element('#gender-radio-1').click()
-    browser.element('#userNumber').click().type('8999999999')
-    browser.element('#dateOfBirthInput').click().element('[class=react-datepicker__year-select]')\
-        .click() ## тут надо разобраться как скроллить
-    browser.element() # тут пропустил одно поле
-    browser.element('#hobbies-checkbox-1').click()
-    browser.element('#uploadPicture').click() ## тут надо разобраться как выбрать конкретный файл коорый хочу загрузить
-    browser.element('#currentAddress').click().type('testaddress')
-    browser.element('#state').click() # тут надо разобратсья как выбрать из выпадающего списка так как селектор скрыввается и нельзщя его определить а ещё не совсем правильон выбрал селектор надо все таки ориентироватсья на стрелочку
-    browser.element('#city').click() # тут надо разобратсья как выбрать из выпадающего списка так как селектор скрыввается и нельзщя его определить а ещё не совсем правильон выбрал селектор надо все таки ориентироватсья на стрелочку
+browser.config.window_width = 1920
+browser.config.window_height = 1080
+
+def test_filling_out():
+    browser.open('/automation-practice-form')
+
+    # WHEN
+    browser.element('#firstName').type('Timur')
+    browser.element('#lastName').type('Garaev')
+    browser.element('#userEmail').type('testguru@mail.ru')
+    browser.element('[name=gender][value=Male] + label').click()
+    browser.element('#userNumber').type('8999999999')
+    #browser.element('#dateOfBirthInput').click().element('.react-datepicker__year-select').click().element('[value="2010"]').click().element('[class="react-datepicker__day react-datepicker__day--013"]').click() ## тут надо разобраться как скроллить
+    browser.element('#subjectsInput').type('Hindi') # тут пропустил одно поле
+    browser.all('[id^=hobbies-checkbox]').element_by(have.exact_text('Sports')).click()
+    #browser.element('#uploadPicture').send_value(os.path.abspath(os.path.join)) ## тут надо разобраться как выбрать конкретный файл коорый хочу загрузить
+    browser.element('#currentAddress').type('testaddress')
+    browser.element('#state').click().all('[id^=react-select][id*=option]').element_by(have.exact_text('Haryana')).click()
+    browser.element('#city').click().all('[id^=react-select][id*=option]').element_by(have.exact_text('Karnal')).click()
     browser.element('#submit').click()
-    browser.element('#example-modal-sizes-title-lg').shoul(have.exact_text('Thanks for submitting the form'))
+
+    # THEN
+    browser.element('#example-modal-sizes-title-lg').should(have.exact_text('Thanks for submitting the form')) # тут плохой селектор но я решил оставить
